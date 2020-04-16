@@ -1,0 +1,41 @@
+{
+	"name": "dynamicfilename",
+	"properties": {
+		"description": "Create files with names based on the source file type (eg.data for csv, assets for media +json, screenshots (siteID-domainname.docx)",
+		"activities": [
+			{
+				"name": "LookupCSV_applist",
+				"description": "Get the Site ID and app name for comparing file name with app name .",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 1,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "csv_applist",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
